@@ -49,7 +49,7 @@ namespace JwtAuthenticationDemo.Controllers
             try
             {
                 var result = await _userManager.CreateAsync(userIdentity, model.Password);
-                if (!result.Succeeded) return new BadRequestObjectResult("User Creation Failed");
+                if (!result.Succeeded) return new OkObjectResult("User Creation Failed");
 
                 await _appDbContext.BookSeekers.AddAsync(new BookSeeker { IdentityId = userIdentity.Id, Location = model.Location });
                 await _appDbContext.SaveChangesAsync();

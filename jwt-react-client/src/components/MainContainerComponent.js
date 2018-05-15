@@ -2,6 +2,7 @@ import React from 'react';
 import { TabsContainer, Tabs, Tab } from 'react-md';
 import  LoginForm  from '../forms/LoginForm';
 import { RegisterForm } from '../forms/RegisterForm';
+import FacebookComponent  from './FacebookComponent';
 
 export const MainContainerComponent = () => (
 
@@ -19,7 +20,7 @@ export const MainContainerComponent = () => (
                 <LoginForm />
             </Tab>
             <Tab label="Facebook Log in">
-                <h3>Now look at me!</h3>
+                <FacebookComponent />
             </Tab>
         </Tabs>
     </TabsContainer>

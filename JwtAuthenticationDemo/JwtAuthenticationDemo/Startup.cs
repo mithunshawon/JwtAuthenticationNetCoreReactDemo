@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using JwtAuthenticationDemo.AuthManager;
 using JwtAuthenticationDemo.Context;
 using JwtAuthenticationDemo.Models;
@@ -103,7 +104,7 @@ namespace JwtAuthenticationDemo
 
             services.AddAutoMapper();
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
