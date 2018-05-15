@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Button } from 'react-md';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-export default class FacebookComponent extends Component{
+
+class FacebookComponent extends Component{
 
     constructor(props){
         super(props)
@@ -21,16 +24,26 @@ export default class FacebookComponent extends Component{
         const message = event ;
         this.authWindow.close();
         const result = JSON.parse(message.data);
-        if (!result.status)
+        const accessToken = result.accessToken;
+        if (result.status)
         {
-            this.failed = true;
-            this.error = result.error;
-            this.errorDescription = result.errorDescription;
+            let data = JSON.stringify({accessToken}); 
+            axios.post('http://localhost:50686/api/externalauth/facebook', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            console.log(response.data);
+            localStorage.setItem('auth_token', response.data.auth_token);
+            this.props.history.push('/home');
+        })
+            .catch(error => {
+                alert(error);
+            });  
         }
         else
         {
-            this.failed = false;
-            this.isRequesting = true;
+
           
         }        
     }
@@ -44,3 +57,5 @@ export default class FacebookComponent extends Component{
         );
     }
 }
+
+export default withRouter(FacebookComponent);
