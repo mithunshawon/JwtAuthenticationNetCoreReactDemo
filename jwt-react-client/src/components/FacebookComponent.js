@@ -40,11 +40,6 @@ class FacebookComponent extends Component{
             .catch(error => {
                 alert(error);
             });  
-        }
-        else
-        {
-
-          
         }        
     }
 
